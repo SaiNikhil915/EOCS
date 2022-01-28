@@ -1,0 +1,63 @@
+(START)
+if (RAM[KBD] != 87):  
+    goto START
+
+R0 = SCREEN + 15   // MIDDLE LINE
+R1 = 255
+R2 = 1
+(COLUMN)
+if (R1==0):
+  goto BLOCKS
+i = R2
+(COL)
+R0 = R0+i
+RAM[R0] = -1
+i = i-1
+if(i>=0):
+ goto COL
+R0=R0+32
+R1=R1-1
+goto COLUMN
+
+(BLOCKS)
+
+R3 = SCREEN + 24     // RECT_ONE variables 
+R5 = 64   
+R7 = 7    
+
+R4 = 22528          // RECT_TWO  variables 
+R6 = 64    
+R8 = 7   
+
+
+(REC_ONE)          //RECT_ONE
+if (R5==0):
+   goto REC_TWO
+i = R7
+(RECT1)
+R3 = R3 + i
+RAM[R3] = -1
+i = i - 1
+if (i>=0):
+    goto RECT1
+R3 = R3 + 32
+R5=R5-1
+goto REC_ONE
+
+
+(REC_TWO)       //RECT_TWO
+if (R6==0):
+    goto END
+n = R8
+(RECT2)
+R4 = R4 + n
+RAM[R4] = -1
+n = n - 1
+if (n>=0):
+    goto RECT2
+R4 = R4 + 32
+R6=R6-1
+goto REC_TWO
+
+(END)
+goto END   // Termination Loop
